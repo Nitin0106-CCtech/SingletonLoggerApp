@@ -1,0 +1,35 @@
+namespace SingletonLoggerApp.Singleton
+{
+    public sealed class Logger
+    {
+        private static Logger? _instance;
+
+        private static readonly object _lock = new object();
+
+        private Logger()
+        {
+            Console.WriteLine("Logger Initialized.");
+        }
+
+        public static Logger Instance
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new Logger();
+                    }
+
+                    return _instance;
+                }
+            }
+        }
+
+        public void Log(string message)
+        {
+            Console.WriteLine($"[LOG] {message}");
+        }
+    }
+}
